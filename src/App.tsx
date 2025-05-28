@@ -1,7 +1,7 @@
 import { ArrowRight, Loader } from "lucide-react";
 import { useState } from "react";
 import "./App.css";
-import { Chat } from "./components/chat";
+import ChatbotUI from "./components/chatbot";
 
 function App() {
   const [value, setValue] = useState("");
@@ -37,8 +37,7 @@ function App() {
   // }
 
   if (submitted) {
-    const chatId = "3";
-    return <Chat initMessage={value} chatId={chatId} />;
+    return <ChatbotUI initMessage={value} />;
   }
 
   return (
