@@ -1,3 +1,8 @@
+export interface Palette {
+  name: string;
+  description: string;
+  colors: PaletteItem[];
+}
 export interface PaletteItem {
   color: string;
   name: string;
@@ -10,7 +15,7 @@ export interface FontItem {
   type: "heading" | "body";
 }
 
-export type ChatMessageContent = string | PaletteItem[] | FontItem[];
+export type ChatMessageContent = string | Palette | FontItem[];
 export type ChatMessageType = "text" | "palette" | "fonts" | "error";
 
 export interface ChatMessage {

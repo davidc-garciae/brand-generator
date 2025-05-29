@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useChatbot } from "../hooks/use-chatbot";
-import type { ChatMessage, FontItem, PaletteItem } from "../types";
+import type { ChatMessage, FontItem, Palette } from "../types";
 
 const SendIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
@@ -56,13 +56,17 @@ export default function ChatbotUI({ initMessage }: Props) {
             : JSON.stringify(message.content)}
         </p>
       );
-    } else if (message.type === "palette" && Array.isArray(message.content)) {
-      const palette = message.content as PaletteItem[];
+    } else if (message.type === "palette") {
+      const palette = message.content as Palette;
       return (
         <div>
+          <p className="mb-2 font-semibold">{palette.name}</p>
+          <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">
+            {palette.description}
+          </p>
           <p className="mb-2">Aquí tienes una paleta de colores:</p>
           <div className="flex flex-wrap gap-3 mt-2">
-            {palette.map((colorItem, index) => (
+            {palette.colors.map((colorItem, index) => (
               <div key={index} className="text-center">
                 <div
                   className="w-16 h-16 border border-gray-300 rounded-md shadow-sm"
