@@ -1,8 +1,31 @@
 @import "tailwindcss";
 
 #root {
-  max-width: 1024px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+}
+
+@theme {
+  --font-inter: "InterVariable", sans-serif;
+
+  --color-cs-black: #191919;
+  --color-description: #536a79;
+  --color-primary: #9f68ce;
+  --color-background: #f7f5fe;
+  --color-placeholder: #8ba0ae;
+  --color-border: #c7ced3;
+  --color-dark: #063248;
+
+  --text-hero-title: clamp(3rem, 6vw, 6rem);
+  --text-hero-title--line-height: 1;
+  --text-hero-action: clamp(1rem, 2vw, 1.5rem);
+  --text-hero-action--line-height: 1;
+  --text-subtitle: 64px;
+}
+
+@font-face {
+  font-family: InterVariable;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/InterVariable.woff2") format("woff2");
 }
