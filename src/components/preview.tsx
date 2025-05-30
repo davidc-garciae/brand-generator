@@ -1,29 +1,22 @@
+import { IntroductionCard } from './IntroductionCard'
 const optionCards = [
   {
     img: '/imgs/Card-Palette.png',
     alt: 'Card Palette Decoration',
-    children: (
-      <>
-        <h3>Palettes</h3>
-        <p className="text-description text-center text-sm leading-4">
-          Explore the canvas to see what you could create!
-        </p>
-      </>
-    ),
+    title: 'Create Palette',
+    description: 'Describe your brand and get the perfect colors for it',
   },
   {
-    img: '/imgs/Palettes-Chat.webp',
-    alt: 'Palettes Chat',
-    children: (
-      <p className="text-description text-center text-sm leading-4">Explore the canvas to see what you could create!</p>
-    ),
+    img: '/imgs/Card-Typography.png',
+    alt: 'Card Typography Decoration',
+    title: 'Choose Typography',
+    description: 'Get the best typography for your branding',
   },
   {
-    img: '/imgs/Palettes-Chat.webp',
-    alt: 'Palettes Chat',
-    children: (
-      <p className="text-description text-center text-sm leading-4">Explore the canvas to see what you could create!</p>
-    ),
+    img: '/imgs/Card-Copy.png',
+    alt: 'Card Typography Decoration',
+    title: 'Adapt Copy-writting',
+    description: 'Find your voice, and adapt the message for your brand',
   },
 ]
 
@@ -43,7 +36,11 @@ export const Preview = () => {
           <br /> AI-powered helper
         </h2>
         <p className="text-description">From prompt to complete corporate branding</p>
-        <div className="mt-8 grid grid-cols-3 gap-4"></div>
+        <div className="mt-8 grid grid-cols-3 gap-9">
+          {optionCards.map((card) => (
+            <IntroductionCard key={card.title} {...card} />
+          ))}
+        </div>
       </article>
     </section>
   )
