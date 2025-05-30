@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useChatbot } from "../hooks/use-chatbot";
 import type { ChatMessage, FontItem, Palette } from "../types";
 import { PanelLeftClose, PanelLeftOpen, SendHorizonal } from "lucide-react";
+import { cn } from "../helpers/cn";
 
 export default function ChatbotUI() {
   const { messages, isLoading, error, sendMessage, startNewChat } =
@@ -84,9 +85,10 @@ export default function ChatbotUI() {
 
   return (
     <div
-      className={`${
-        isCollapsed ? "w-[100px]" : "w-[500px]"
-      } min-h-screen flex flex-col bg-background p-5 gap-8 duration-200 ease-in-out`}
+      className={cn(
+        "min-h-screen flex flex-col bg-background p-5 gap-8 duration-200 ease-in-out",
+        isCollapsed ? "w-[100px]" : "w-[500px]",
+      )}
     >
       {/* Header */}
       <div className="flex shadow-sm bg-white px-[10px] py-[5px] rounded-md justify-between items-center gap-4">
@@ -150,26 +152,29 @@ export default function ChatbotUI() {
             {messages.map((msg) => (
               <div
                 key={msg.id}
-                className={`flex ${
-                  msg.sender === "user" ? "justify-end" : "justify-start"
-                }`}
+                className={cn(
+                  "flex",
+                  msg.sender === "user" ? "justify-end" : "justify-start",
+                )}
               >
                 <div
-                  className={`p-3 rounded-xl shadow ${
+                  className={cn(
+                    "p-3 rounded-xl shadow",
                     msg.sender === "user"
                       ? "bg-blue-500 text-white rounded-br-none"
                       : msg.type === "error"
                         ? "bg-red-100 dark:bg-red-700 text-red-700 dark:text-red-100 border border-red-300 dark:border-red-600 rounded-bl-none"
-                        : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-bl-none"
-                  }`}
+                        : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-bl-none",
+                  )}
                 >
                   {renderMessageContent(msg)}
                   <p
-                    className={`text-xs mt-1.5 ${
+                    className={cn(
+                      "text-xs mt-1.5",
                       msg.sender === "user"
                         ? "text-blue-200 text-right"
-                        : "text-gray-500 dark:text-gray-400 text-right"
-                    }`}
+                        : "text-gray-500 dark:text-gray-400 text-right",
+                    )}
                   >
                     {new Date(msg.timestamp).toLocaleTimeString([], {
                       hour: "2-digit",
