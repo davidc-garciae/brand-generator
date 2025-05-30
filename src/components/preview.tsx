@@ -1,54 +1,46 @@
+import { IntroductionCard } from './IntroductionCard'
+
 const optionCards = [
   {
-    img: "/imgs/Card-Palette.png",
-    alt: "Card Palette Decoration",
-    children: (
-      <>
-        <h3>Palettes</h3>
-        <p className="text-sm leading-4 text-center text-description">
-          Explore the canvas to see what you could create!
-        </p>
-      </>
-    ),
+    img: '/imgs/Card-Palette.png',
+    alt: 'Card Palette Decoration',
+    title: 'Create Palette',
+    description: 'Describe your brand and get the perfect colors for it',
   },
   {
-    img: "/imgs/Palettes-Chat.webp",
-    alt: "Palettes Chat",
-    children: (
-      <p className="text-sm leading-4 text-center text-description">
-        Explore the canvas to see what you could create!
-      </p>
-    ),
+    img: '/imgs/Card-Typography.png',
+    alt: 'Card Typography Decoration',
+    title: 'Choose Typography',
+    description: 'Get the best typography for your branding',
   },
   {
-    img: "/imgs/Palettes-Chat.webp",
-    alt: "Palettes Chat",
-    children: (
-      <p className="text-sm leading-4 text-center text-description">
-        Explore the canvas to see what you could create!
-      </p>
-    ),
+    img: '/imgs/Card-Copy.png',
+    alt: 'Card Typography Decoration',
+    title: 'Adapt Copy-writting',
+    description: 'Find your voice, and adapt the message for your brand',
   },
-];
+]
 
 export const Preview = () => {
   return (
-    <section className="w-full min-h-screen">
-      <header className="w-full flex mt-6 items-center justify-center">
+    <section className="min-h-screen w-full">
+      <header className="mt-6 flex w-full items-center justify-center">
         <img src="/imgs/Avatar.png" alt="User Avatar" width={36} height={36} />
       </header>
-      <article className="w-full h-[calc(100vh-44px)] flex flex-col items-center justify-center">
+      <article className="flex h-[calc(100vh-68px)] w-full flex-col items-center justify-center">
         <img src="/imgs/Hambot.webp" alt="Hambot Logo" width={120} />
-        <h2 className="text-center leading-11 text-4xl font-bold text-cs-black">
+        <h2 className="text-cs-black text-center text-4xl leading-11 font-bold">
           Welcome to <span className="text-primary">Hambot</span>
           , your
           <br /> AI-powered helper
         </h2>
-        <p className="text-description">
-          From prompt to complete corporate branding
-        </p>
-        <div className="grid grid-cols-3 gap-4 mt-8"></div>
+        <p className="text-description">From prompt to complete corporate branding</p>
+        <div className="mt-8 grid grid-cols-3 gap-9">
+          {optionCards.map((card) => (
+            <IntroductionCard key={card.title} {...card} />
+          ))}
+        </div>
       </article>
     </section>
-  );
-};
+  )
+}
