@@ -5,7 +5,7 @@ import { Preview } from "./components/preview";
 function App() {
   return (
     <main className="flex font-inter">
-      <ChatbotUI />;
+      <ChatbotUI />
       <Preview />
     </main>
   );
