@@ -1,14 +1,18 @@
 type Props = {
-  img: string;
-  alt: string;
-  children: React.ReactNode;
-};
+  img: string
+  alt: string
+  title: string
+  description: string
+}
 
-export const IntroductionCard = ({ img, alt, children }: Props) => {
+export const IntroductionCard = ({ img, alt, title, description }: Props) => {
   return (
-    <div className="flex flex-col border boder-border rounded-lg gap-4 p-4">
-      <img src={img} alt={alt} className="w-full" />
-      {children}
+    <div className="flex w-[226px] flex-col gap-4 rounded-lg border-1 border-[#EDEDED] p-4">
+      <img src={img} width={200} alt={alt} />
+      <div className="flex flex-col gap-2 text-center">
+        <h3 className="text-cs-black text-md font-bold">{title}</h3>
+        <p className="text-description text-sm">{description}</p>
+      </div>
     </div>
-  );
-};
+  )
+}
