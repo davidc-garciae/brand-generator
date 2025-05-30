@@ -6,7 +6,7 @@ import { PanelLeftClose, PanelLeftOpen, SendHorizonal } from "lucide-react";
 export default function ChatbotUI() {
   const { messages, isLoading, error, sendMessage, startNewChat } =
     useChatbot();
-  const [inputText, setInputText] = useState<string>("");
+  const formRef = useRef<HTMLFormElement | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -18,9 +18,14 @@ export default function ChatbotUI() {
 
   useEffect(scrollToBottom, [messages]);
 
-  const handleMessage = (message: string) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const message = new FormData(e.target as HTMLFormElement).get(
+      "message"
+    ) as string;
+    if (!message.trim()) return;
     sendMessage(message);
-    setInputText("");
+    formRef.current?.reset()
   };
 
   const renderMessageContent = (message: ChatMessage) => {
@@ -191,20 +196,15 @@ export default function ChatbotUI() {
       )}
       {/* Input Area */}
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          if (!inputText.trim()) return;
-          handleMessage(inputText);
-        }}
+        ref={formRef}
+        onSubmit={handleSubmit}
         className="relative"
       >
         <textarea
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
+          name="message"
           onKeyDown={(event) => {
-            if (event.key === "Enter") {
-              if (!inputText.trim()) return;
-              handleMessage(inputText);
+            if (event.key === "Enter" && !event.shiftKey) {
+              formRef.current?.requestSubmit();
             }
           }}
           placeholder="Let's build your corporate brand"
