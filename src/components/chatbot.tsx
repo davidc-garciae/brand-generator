@@ -21,11 +21,11 @@ export default function ChatbotUI() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const message = new FormData(e.target as HTMLFormElement).get(
-      "message"
+      "message",
     ) as string;
     if (!message.trim()) return;
     sendMessage(message);
-    formRef.current?.reset()
+    formRef.current?.reset();
   };
 
   const renderMessageContent = (message: ChatMessage) => {
@@ -159,8 +159,8 @@ export default function ChatbotUI() {
                     msg.sender === "user"
                       ? "bg-blue-500 text-white rounded-br-none"
                       : msg.type === "error"
-                      ? "bg-red-100 dark:bg-red-700 text-red-700 dark:text-red-100 border border-red-300 dark:border-red-600 rounded-bl-none"
-                      : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-bl-none"
+                        ? "bg-red-100 dark:bg-red-700 text-red-700 dark:text-red-100 border border-red-300 dark:border-red-600 rounded-bl-none"
+                        : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-bl-none"
                   }`}
                 >
                   {renderMessageContent(msg)}
@@ -195,11 +195,7 @@ export default function ChatbotUI() {
         </div>
       )}
       {/* Input Area */}
-      <form
-        ref={formRef}
-        onSubmit={handleSubmit}
-        className="relative"
-      >
+      <form ref={formRef} onSubmit={handleSubmit} className="relative">
         <textarea
           name="message"
           onKeyDown={(event) => {
