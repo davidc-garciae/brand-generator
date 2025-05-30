@@ -1,6 +1,6 @@
 import "./App.css";
 import ChatbotUI from "./components/chatbot";
-import { Preview } from "./components/Preview";
+import { Preview } from "./components/preview";
 
 function App() {
   return (
