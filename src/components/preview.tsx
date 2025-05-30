@@ -1,54 +1,50 @@
 const optionCards = [
   {
-    img: "/imgs/Card-Palette.png",
-    alt: "Card Palette Decoration",
+    img: '/imgs/Card-Palette.png',
+    alt: 'Card Palette Decoration',
     children: (
       <>
         <h3>Palettes</h3>
-        <p className="text-sm leading-4 text-center text-description">
+        <p className="text-description text-center text-sm leading-4">
           Explore the canvas to see what you could create!
         </p>
       </>
     ),
   },
   {
-    img: "/imgs/Palettes-Chat.webp",
-    alt: "Palettes Chat",
+    img: '/imgs/Palettes-Chat.webp',
+    alt: 'Palettes Chat',
     children: (
-      <p className="text-sm leading-4 text-center text-description">
-        Explore the canvas to see what you could create!
-      </p>
+      <p className="text-description text-center text-sm leading-4">Explore the canvas to see what you could create!</p>
     ),
   },
   {
-    img: "/imgs/Palettes-Chat.webp",
-    alt: "Palettes Chat",
+    img: '/imgs/Palettes-Chat.webp',
+    alt: 'Palettes Chat',
     children: (
-      <p className="text-sm leading-4 text-center text-description">
-        Explore the canvas to see what you could create!
-      </p>
+      <p className="text-description text-center text-sm leading-4">Explore the canvas to see what you could create!</p>
     ),
   },
-];
+]
 
 export const Preview = () => {
   return (
-    <section className="w-full min-h-screen">
-      <header className="w-full flex mt-6 items-center justify-center">
-        <img src="/imgs/Avatar.png" alt="User Avatar" width={36} height={36} />
+    <section className="grid min-h-screen w-full grid-rows-[auto_1fr]">
+      <header className="flex w-full items-center justify-center p-5">
+        <div className="h-[50px] w-full rounded-md bg-white px-[10px] py-[5px] shadow-sm">
+          <img src="/imgs/Avatar.png" alt="User Avatar" width={36} height={36} />
+        </div>
       </header>
-      <article className="w-full h-[calc(100vh-44px)] flex flex-col items-center justify-center">
+      <article className="flex w-full flex-col items-center justify-center">
         <img src="/imgs/Hambot.webp" alt="Hambot Logo" width={120} />
-        <h2 className="text-center leading-11 text-4xl font-bold text-cs-black">
+        <h2 className="text-cs-black text-center text-4xl leading-11 font-bold">
           Welcome to <span className="text-primary">Hambot</span>
           , your
           <br /> AI-powered helper
         </h2>
-        <p className="text-description">
-          From prompt to complete corporate branding
-        </p>
-        <div className="grid grid-cols-3 gap-4 mt-8"></div>
+        <p className="text-description">From prompt to complete corporate branding</p>
+        <div className="mt-8 grid grid-cols-3 gap-4"></div>
       </article>
     </section>
-  );
-};
+  )
+}
