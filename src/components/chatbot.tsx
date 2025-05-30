@@ -80,27 +80,36 @@ export default function ChatbotUI() {
   return (
     <div
       className={`${
-        isCollapsed ? "w-[100px]" : "w-[500px]"
-      } min-h-screen flex flex-col bg-background p-5 gap-8 duration-200 ease-in-out`}
+        isCollapsed ? "w-[100px] after:content-[''] after:absolute after:top-20 after:right-0 after:bottom-0 after:left-0 after:bg-background" : "w-[500px]"
+      } h-screen relative flex flex-col bg-background p-5 gap-8 duration-200 ease-in-out overflow-y-auto`}
     >
       {/* Header */}
       <div className="flex shadow-sm bg-white px-[10px] py-[5px] rounded-md justify-between items-center gap-4">
-        <hgroup className="flex gap-2 items-center">
-          <img
-            src={"/imgs/Hambot.webp"}
-            alt="Hambot Logo"
-            width={36}
-            height={36}
-          />
-          <h1 className="font-bold">Hambot</h1>
-        </hgroup>
+        {
+          !isCollapsed && (
+            <hgroup className="flex gap-2 items-center w-9">
+              <img
+                width={36}
+                height={36}
+                alt="Hambot Logo"
+                src="/imgs/Hambot.webp"
+                className="size-9"
+              />
+              <h1 className="font-bold">Hambot</h1>
+            </hgroup>
+          )
+        }
         <div className="flex gap-2">
-          <button
-            onClick={startNewChat}
-            className="bg-slate-200 w-fit hover:bg-slate-300 text-cs-black text-sm py-1.5 px-3 rounded-md transition-colors"
-          >
-            Nuevo Chat
-          </button>
+          {
+            !isCollapsed && (
+              <button
+                onClick={startNewChat}
+                className="bg-slate-200 w-fit hover:bg-slate-300 text-cs-black text-sm py-1.5 px-3 rounded-md transition-colors"
+              >
+                Nuevo Chat
+              </button>
+            )
+          }
           <button
             onClick={() => {
               setIsCollapsed(!isCollapsed);
@@ -112,7 +121,7 @@ export default function ChatbotUI() {
         </div>
       </div>
       {/* Messages Area */}
-      <div className="flex-grow p-4 overflow-y-auto overflow-x-hidden">
+      <div className="p-4 overflow-y-auto overflow-x-hidden h-full">
         {!hasMessages ? (
           <div className="flex flex-col h-full justify-center relative">
             {/* Empty State */}
