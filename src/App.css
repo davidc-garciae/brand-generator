@@ -38,7 +38,7 @@
   border-radius: 10px;
 }
 textarea::-webkit-resizer {
-    background-color: transparent;
-    border-width: 0;
-    outline: none;
-  }
+  background-color: transparent;
+  border-width: 0;
+  outline: none;
+}

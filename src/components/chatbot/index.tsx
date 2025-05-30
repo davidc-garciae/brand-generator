@@ -6,11 +6,9 @@ import { Messages } from "./messages";
 import { Header } from "./header";
 
 export default function ChatbotUI() {
-  const { messages, isLoading, error, sendMessage } =
-    useChatbot();
+  const { messages, isLoading, error, sendMessage } = useChatbot();
   const formRef = useRef<HTMLFormElement | null>(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
-
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,8 +23,10 @@ export default function ChatbotUI() {
   return (
     <div
       className={cn(
-        "h-screen flex flex-col bg-background duration-200 ease-in-out gap-2",
-        isCollapsed ? "w-[100px]" : "w-[500px]",
+        "h-screen relative flex flex-col bg-background duration-200 ease-in-out gap-2 overflow-y-auto",
+        isCollapsed
+          ? "w-[100px] after:content-[''] after:absolute after:top-20 after:right-0 after:bottom-0 after:left-0 after:bg-background"
+          : "w-[500px]",
       )}
     >
       <Header isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />

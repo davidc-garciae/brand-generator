@@ -14,7 +14,7 @@ export function Messages({ messages }: { messages: ChatMessage[] }) {
 
   useEffect(scrollToBottom, [messages]);
   return (
-    <div className="relative flex-grow size-full overflow-auto">
+    <div className="relative flex-grow size-full overflow-y-auto overflow-x-hidden">
       <div className="from-background pointer-events-none absolute left-0 right-4 top-0 z-10 h-4 bg-gradient-to-b to-transparent transition-opacity opacity-100" />
       <div className="h-full overflow-y-auto overflow-x-hidden px-5 py-4 relative chat-scrollbar flex flex-col gap-2">
         {!hasMessages ? (
@@ -92,59 +92,59 @@ export function Messages({ messages }: { messages: ChatMessage[] }) {
       </div>
       <div className="from-background pointer-events-none absolute left-0 right-4 bottom-0 z-10 h-4 bg-gradient-to-t to-transparent transition-opacity opacity-100" />
     </div>
-  )
+  );
 }
 
 function MessageContent({ message }: { message: ChatMessage }) {
-if (message.type === "text" || message.type === "error") {
-      return (
-        <p className="whitespace-pre-wrap">
-          {typeof message.content === "string"
-            ? message.content
-            : JSON.stringify(message.content)}
+  if (message.type === "text" || message.type === "error") {
+    return (
+      <p className="whitespace-pre-wrap">
+        {typeof message.content === "string"
+          ? message.content
+          : JSON.stringify(message.content)}
+      </p>
+    );
+  } else if (message.type === "palette") {
+    const palette = message.content as Palette;
+    return (
+      <div>
+        <p className="mb-2 font-semibold">{palette.name}</p>
+        <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">
+          {palette.description}
         </p>
-      );
-    } else if (message.type === "palette") {
-      const palette = message.content as Palette;
-      return (
-        <div>
-          <p className="mb-2 font-semibold">{palette.name}</p>
-          <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">
-            {palette.description}
-          </p>
-          <p className="mb-2">Aquí tienes una paleta de colores:</p>
-          <div className="flex flex-wrap gap-3 mt-2">
-            {palette.colors.map((colorItem, index) => (
-              <div key={index} className="text-center">
-                <div
-                  className="w-16 h-16 border border-gray-300 rounded-md shadow-sm"
-                  style={{ backgroundColor: colorItem.color }}
-                ></div>
-                <small className="block text-xs mt-1 text-gray-700 dark:text-gray-300">
-                  {colorItem.name}
-                </small>
-                <small className="block text-xs text-gray-500 dark:text-gray-400">
-                  {colorItem.color}
-                </small>
-              </div>
-            ))}
-          </div>
+        <p className="mb-2">Aquí tienes una paleta de colores:</p>
+        <div className="flex flex-wrap gap-3 mt-2">
+          {palette.colors.map((colorItem, index) => (
+            <div key={index} className="text-center">
+              <div
+                className="w-16 h-16 border border-gray-300 rounded-md shadow-sm"
+                style={{ backgroundColor: colorItem.color }}
+              ></div>
+              <small className="block text-xs mt-1 text-gray-700 dark:text-gray-300">
+                {colorItem.name}
+              </small>
+              <small className="block text-xs text-gray-500 dark:text-gray-400">
+                {colorItem.color}
+              </small>
+            </div>
+          ))}
         </div>
-      );
-    } else if (message.type === "fonts" && Array.isArray(message.content)) {
-      const fonts = message.content as FontItem[];
-      return (
-        <div>
-          <p className="mb-2">Te sugiero estas fuentes:</p>
-          <ul className="list-disc pl-5 space-y-1">
-            {fonts.map((font, index) => (
-              <li key={index} style={{ fontFamily: font.name }}>
-                {font.name} ({font.type})
-              </li>
-            ))}
-          </ul>
-        </div>
-      );
-    }
-    return <p>Contenido de tipo desconocido.</p>;
+      </div>
+    );
+  } else if (message.type === "fonts" && Array.isArray(message.content)) {
+    const fonts = message.content as FontItem[];
+    return (
+      <div>
+        <p className="mb-2">Te sugiero estas fuentes:</p>
+        <ul className="list-disc pl-5 space-y-1">
+          {fonts.map((font, index) => (
+            <li key={index} style={{ fontFamily: font.name }}>
+              {font.name} ({font.type})
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+  return <p>Contenido de tipo desconocido.</p>;
 }
