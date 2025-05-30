@@ -7,6 +7,10 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+bun.lock
 node_modules
 dist
 dist-ssr
@@ -14,7 +18,9 @@ dist-ssr
 
 # Editor directories and files
 .vscode/*
+!.vscode/settings.json
 !.vscode/extensions.json
+!.vscode/css_custom_tailwind.json
 .idea
 .DS_Store
 *.suo
@@ -25,3 +31,4 @@ dist-ssr
 
 .env
 .env.local
+.eslintcache
