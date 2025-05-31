@@ -1,11 +1,11 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 #root {
   margin: 0 auto;
 }
 
 @theme {
-  --font-inter: "InterVariable", sans-serif;
+  --font-inter: 'InterVariable', sans-serif;
 
   --color-cs-black: #191919;
   --color-description: #536a79;
@@ -27,7 +27,7 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url("/fonts/InterVariable.woff2") format("woff2");
+  src: url('/fonts/InterVariable.woff2') format('woff2');
 }
 
 .chat-scrollbar::-webkit-scrollbar {
