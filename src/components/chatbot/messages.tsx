@@ -1,142 +1,112 @@
-import type { ChatMessage, FontItem, Palette } from "@/types";
-import { cn } from "@/helpers/cn";
-import { useChatbot } from "@/hooks/use-chatbot";
-import { useEffect, useRef } from "react";
+import { cn } from '@/helpers/cn'
+import { useChatbot } from '@/hooks/use-chatbot'
+import type { ChatMessage, FontItem, Palette } from '@/types'
+import { useEffect, useRef } from 'react'
+import TextMessage from './message/text-message'
 
 export function Messages({ messages }: { messages: ChatMessage[] }) {
-  const { isLoading } = useChatbot();
-  const hasMessages = messages.length > 0;
+  const { isLoading } = useChatbot()
+  const hasMessages = messages.length > 0
 
-  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null)
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
 
-  useEffect(scrollToBottom, [messages]);
+  useEffect(scrollToBottom, [messages])
   return (
-    <div className="relative flex-grow size-full overflow-y-auto overflow-x-hidden">
-      <div className="from-background pointer-events-none absolute left-0 right-4 top-0 z-10 h-4 bg-gradient-to-b to-transparent transition-opacity opacity-100" />
-      <div className="h-full overflow-y-auto overflow-x-hidden px-5 py-4 relative chat-scrollbar flex flex-col gap-2">
+    <div className="relative size-full flex-grow overflow-x-hidden overflow-y-auto">
+      <div className="from-background pointer-events-none absolute top-0 right-4 left-0 z-10 h-4 bg-gradient-to-b to-transparent opacity-100 transition-opacity" />
+      <div className="chat-scrollbar relative flex h-full flex-col gap-4 overflow-x-hidden overflow-y-auto px-5 py-4">
         {!hasMessages ? (
-          <div className="flex flex-col h-full justify-center relative">
+          <div className="relative flex h-full flex-col justify-center">
             {/* Empty State */}
-            <div className="absolute z-10 flex items-center justify-center inset-0">
-              <div className="h-fit max-w-xs flex flex-col gap-4 items-center p-8 rounded-lg drop-shadow-md bg-white ">
-                <img
-                  src="/imgs/Palettes-Chat.webp"
-                  alt="Decoration Palettes"
-                  width={180}
-                  className="drop-shadow-md"
-                />
-                <p className="font-bold leading-8 max-w-[200px] text-[28px] text-center text-cs-black">
+            <div className="absolute inset-0 z-10 flex items-center justify-center">
+              <div className="flex h-fit max-w-xs flex-col items-center gap-4 rounded-lg bg-white p-8 drop-shadow-md">
+                <img src="/imgs/Palettes-Chat.webp" alt="Decoration Palettes" width={180} className="drop-shadow-md" />
+                <p className="text-cs-black max-w-[200px] text-center text-[28px] leading-8 font-bold">
                   Let's start to see your palettes here
                 </p>
-                <p className="text-sm  leading-4 max-w-[200px] text-center text-description">
+                <p className="text-description max-w-[200px] text-center text-sm leading-4">
                   Explore the canvas to see what you could create!
                 </p>
               </div>
             </div>
-            <img
-              src="/imgs/Cloud.webp"
-              alt="Decoration Cloud"
-              width={542}
-              height={353}
-              className="scale-[1.1]"
-            />
+            <img src="/imgs/Cloud.webp" alt="Decoration Cloud" width={542} height={353} className="scale-[1.1]" />
           </div>
         ) : (
           <>
             {messages.map((msg) => (
-              <div
-                key={msg.id}
-                className={cn(
-                  "flex",
-                  msg.sender === "user" ? "justify-end" : "justify-start",
-                )}
-              >
+              <div key={msg.id} className={cn('flex', msg.sender === 'user' ? 'justify-end' : 'justify-start')}>
                 <div
                   className={cn(
-                    "p-3 rounded-xl shadow",
-                    msg.sender === "user"
-                      ? "bg-blue-500 text-white rounded-br-none"
-                      : msg.type === "error"
-                        ? "bg-red-100 dark:bg-red-700 text-red-700 dark:text-red-100 border border-red-300 dark:border-red-600 rounded-bl-none"
-                        : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-bl-none",
+                    'rounded-xl p-3 shadow-xs',
+                    msg.sender === 'user'
+                      ? 'rounded-br-none bg-blue-500 text-white'
+                      : msg.type === 'error'
+                        ? 'rounded-bl-none border border-red-300 bg-red-100 text-red-700'
+                        : 'rounded-bl-none bg-white text-gray-800',
                   )}
                 >
-                  <MessageContent message={msg} />
+                  <MessageContent message={msg} isUser={msg.sender === 'user'} />
                   <p
                     className={cn(
-                      "text-xs mt-1.5",
-                      msg.sender === "user"
-                        ? "text-blue-200 text-right"
-                        : "text-gray-500 dark:text-gray-400 text-right",
+                      'mt-1.5 text-xs',
+                      msg.sender === 'user'
+                        ? 'text-right text-blue-200'
+                        : 'text-right text-gray-500 dark:text-gray-400',
                     )}
                   >
                     {new Date(msg.timestamp).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
+                      hour: '2-digit',
+                      minute: '2-digit',
                     })}
                   </p>
                 </div>
               </div>
             ))}
             {isLoading && (
-              <div className="text-center text-sm text-gray-500 dark:text-gray-400 italic py-2">
-                Escribiendo...
-              </div>
+              <div className="py-2 text-center text-sm text-gray-500 italic dark:text-gray-400">Escribiendo...</div>
             )}
             <div ref={messagesEndRef} />
           </>
         )}
       </div>
-      <div className="from-background pointer-events-none absolute left-0 right-4 bottom-0 z-10 h-4 bg-gradient-to-t to-transparent transition-opacity opacity-100" />
+      <div className="from-background pointer-events-none absolute right-4 bottom-0 left-0 z-10 h-4 bg-gradient-to-t to-transparent opacity-100 transition-opacity" />
     </div>
-  );
+  )
 }
 
-function MessageContent({ message }: { message: ChatMessage }) {
-  if (message.type === "text" || message.type === "error") {
-    return (
-      <p className="whitespace-pre-wrap">
-        {typeof message.content === "string"
-          ? message.content
-          : JSON.stringify(message.content)}
-      </p>
-    );
-  } else if (message.type === "palette") {
-    const palette = message.content as Palette;
+function MessageContent({ message, isUser }: { message: ChatMessage; isUser?: boolean }) {
+  if (message.type === 'text' || message.type === 'error') {
+    return <TextMessage text={message.content as string} className={isUser ? 'text-white' : undefined} />
+  } else if (message.type === 'palette') {
+    const palette = message.content as Palette
     return (
       <div>
         <p className="mb-2 font-semibold">{palette.name}</p>
-        <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">
-          {palette.description}
-        </p>
+        <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">{palette.description}</p>
         <p className="mb-2">Aquí tienes una paleta de colores:</p>
-        <div className="flex flex-wrap gap-3 mt-2">
+        <div className="mt-2 flex flex-wrap gap-3">
           {palette.colors.map((colorItem, index) => (
             <div key={index} className="text-center">
               <div
-                className="w-16 h-16 border border-gray-300 rounded-md shadow-sm"
+                className="h-16 w-16 rounded-md border border-gray-300 shadow-sm"
                 style={{ backgroundColor: colorItem.color }}
               ></div>
-              <small className="block text-xs mt-1 text-gray-700 dark:text-gray-300">
-                {colorItem.name}
-              </small>
-              <small className="block text-xs text-gray-500 dark:text-gray-400">
-                {colorItem.color}
-              </small>
+              <small className="mt-1 block text-xs text-gray-700 dark:text-gray-300">{colorItem.name}</small>
+              <small className="block text-xs text-gray-500 dark:text-gray-400">{colorItem.color}</small>
             </div>
           ))}
         </div>
       </div>
-    );
-  } else if (message.type === "fonts" && Array.isArray(message.content)) {
-    const fonts = message.content as FontItem[];
+    )
+  } else if (message.type === 'fonts' && Array.isArray(message.content)) {
+    const fonts = message.content as FontItem[]
     return (
       <div>
         <p className="mb-2">Te sugiero estas fuentes:</p>
-        <ul className="list-disc pl-5 space-y-1">
+        <ul className="list-disc space-y-1 pl-5">
           {fonts.map((font, index) => (
             <li key={index} style={{ fontFamily: font.name }}>
               {font.name} ({font.type})
@@ -144,7 +114,7 @@ function MessageContent({ message }: { message: ChatMessage }) {
           ))}
         </ul>
       </div>
-    );
+    )
   }
-  return <p>Contenido de tipo desconocido.</p>;
+  return <p>Contenido de tipo desconocido.</p>
 }
