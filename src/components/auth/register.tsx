@@ -1,26 +1,34 @@
-import { useAuth } from "../../hooks/use-auth";
+import { useLocation } from 'wouter'
+import { useAuth } from '../../hooks/use-auth'
 
 export default function Register() {
-  const { register } = useAuth();
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const name = formData.get("name") as string;
+  const { register } = useAuth()
+  const [, setLocation] = useLocation()
 
-    console.log({ email, password, name });
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+    const name = formData.get('name') as string
+
+    console.log({ email, password, name })
 
     if (!email || !password || !name) {
-      console.log("Missing fields");
-      return;
+      console.log('Missing fields')
+      return
     }
 
-    register({
-      email,
-      password,
-      name,
-    });
+    try {
+      await register({
+        email,
+        password,
+        name,
+      })
+      setLocation('/')
+    } catch (error) {
+      console.log(error)
+    }
   }
   return (
     <div>
@@ -32,5 +40,5 @@ export default function Register() {
         <button type="submit">Register</button>
       </form>
     </div>
-  );
+  )
 }
