@@ -4,6 +4,7 @@ import type { Palette } from '@/types'
 
 type Props = {
   palette: Palette
+  editable?: boolean
 }
 
 const Button = ({ onClick, children }: { onClick?: () => void; children: React.ReactNode }) => (
@@ -18,6 +19,7 @@ const Button = ({ onClick, children }: { onClick?: () => void; children: React.R
 export default function PalettePreview(props: Props) {
   const {
     palette: { colors, description, name },
+    editable = false,
   } = props
   const [isExpanded, setIsExpanded] = useState(true)
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
@@ -34,7 +36,7 @@ export default function PalettePreview(props: Props) {
   }
 
   return (
-    <div className="mx-6 h-fit overflow-hidden rounded-2xl bg-white shadow-lg">
+    <div className="mx-6 h-fit overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-md">
       <div className="flex items-center justify-between border-b border-gray-100 p-6">
         <div className="flex items-center gap-3">
           <button
@@ -47,10 +49,12 @@ export default function PalettePreview(props: Props) {
         </div>
 
         <div className="flex items-center gap-3">
-          <Button>
-            <Shuffle size={16} />
-            Create Again
-          </Button>
+          {editable && (
+            <Button>
+              <Shuffle size={16} />
+              Create Again
+            </Button>
+          )}
 
           <Button onClick={copyAllColors}>
             <Copy size={16} />
