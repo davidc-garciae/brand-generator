@@ -1,25 +1,29 @@
-import { useAuth } from "../../hooks/use-auth";
+import { useLocation } from 'wouter'
+import { useAuth } from '../../hooks/use-auth'
 
 export default function Login() {
-  const { login } = useAuth();
+  const { login } = useAuth()
+  const [, setLocation] = useLocation()
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
 
-    console.log({ email, password });
+    console.log({ email, password })
 
     if (!email || !password) {
-      console.log("Missing fields");
-      return;
+      console.log('Missing fields')
+      return
     }
 
-    login({
-      email,
-      password,
-    });
+    try {
+      await login({ email, password })
+      setLocation('/')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -31,5 +35,5 @@ export default function Login() {
         <button type="submit">Login</button>
       </form>
     </div>
-  );
+  )
 }

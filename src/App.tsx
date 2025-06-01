@@ -1,30 +1,26 @@
-import "./App.css";
-import Login from "./components/auth/login";
-import Register from "./components/auth/register";
-import ChatbotUI from "./components/chatbot";
-import { useAuth } from "./hooks/use-auth";
-import { Preview } from "./components/preview";
-
+import { Route, Switch } from 'wouter'
+import './App.css'
+import Login from './components/auth/login'
+import Register from './components/auth/register'
+import ChatbotUI from './components/chatbot'
+import { Preview } from './components/preview'
 
 function App() {
-  const pathname = window.location.pathname;
-  const { user } = useAuth();
-  console.log({ user }); //Testing current user
-
-  if (pathname === "/register") {
-    return <Register />;
-  }
-
-  if (pathname === "/login") {
-    return <Login />;
-  }
-
   return (
-    <main className="flex font-inter">
-      <ChatbotUI />
-      <Preview />
-    </main>
-  );
+    <Switch>
+      <Route path="/">
+        <main className="font-inter flex">
+          <ChatbotUI />
+          <Preview />
+        </main>
+      </Route>
+
+      <Route path="/login" component={Login} />
+      <Route path="/register" component={Register} />
+
+      <Route>404: No such page!</Route>
+    </Switch>
+  )
 }
 
-export default App;
+export default App
