@@ -24,7 +24,7 @@ export default function ChatbotUI() {
         'bg-background relative flex h-screen flex-col gap-2 overflow-y-auto duration-200 ease-in-out',
         isCollapsed
           ? "after:bg-background w-[100px] after:absolute after:top-20 after:right-0 after:bottom-0 after:left-0 after:content-['']"
-          : 'w-[500px]',
+          : 'w-[700px]',
       )}
     >
       <Header isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />

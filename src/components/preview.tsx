@@ -1,5 +1,9 @@
 import { useAuth } from '@/hooks/use-auth'
 import { IntroductionCard } from './IntroductionCard'
+import { useChatbot } from '@/hooks/use-chatbot'
+import PalettePreview from './chatbot/preview/palette-preview'
+import type { Palette } from '@/types'
+import { cn } from '@/helpers/cn'
 const optionCards = [
   {
     img: '/imgs/Card-Palette.png',
@@ -23,53 +27,55 @@ const optionCards = [
 
 export const Preview = () => {
   const { user, logout } = useAuth()
+  const { messages } = useChatbot()
 
   function handleLogout() {
     logout()
   }
 
-  console.log({ user })
+  const lastPalette = [...messages].reverse().find((message) => message.type === 'palette')
+
   return (
-    <section className="grid min-h-screen w-full grid-rows-[auto_1fr]">
+    <section className={cn('grid min-h-screen w-full grid-rows-[auto_1fr]', lastPalette && 'bg-[#F0E8FB]')}>
       <header className="flex w-full items-center justify-center p-5">
         <div className="flex h-[50px] w-full items-center justify-end rounded-md bg-white px-[10px] py-[5px] shadow-sm">
           {user ? (
             <div className="flex items-center gap-2">
               <img src="/imgs/Avatar.png" alt="User Avatar" width={36} height={36} />
               <p className="text-cs-black text-sm">{user.email}</p>
-              <button
-                onClick={handleLogout}
-                className="text-cs-black text-primary cursor-pointer text-sm hover:underline"
-              >
+              <button onClick={handleLogout} className="text-primary cursor-pointer text-sm hover:underline">
                 Logout
               </button>
             </div>
           ) : (
             <div className="flex items-center gap-4">
-              <a href="/login" className="text-cs-black text-primary cursor-pointer text-sm hover:underline">
+              <a href="/login" className="text-primary cursor-pointer text-sm hover:underline">
                 Login
               </a>
-              <a href="/register" className="text-cs-black text-primary cursor-pointer text-sm hover:underline">
+              <a href="/register" className="text-primary cursor-pointer text-sm hover:underline">
                 Register
               </a>
             </div>
           )}
         </div>
       </header>
-      <article className="flex w-full flex-col items-center justify-center">
-        <img src="/imgs/Hambot.webp" alt="Hambot Logo" width={120} />
-        <h2 className="text-cs-black text-center text-4xl leading-11 font-bold">
-          Welcome to <span className="text-primary">Hambot</span>
-          , your
-          <br /> AI-powered helper
-        </h2>
-        <p className="text-description">From prompt to complete corporate branding</p>
-        <div className="mt-8 grid grid-cols-3 gap-9">
-          {optionCards.map((card) => (
-            <IntroductionCard key={card.title} {...card} />
-          ))}
-        </div>
-      </article>
+      {lastPalette && <PalettePreview palette={lastPalette.content as Palette} />}
+      {!lastPalette && (
+        <article className="flex w-full flex-col items-center justify-center">
+          <img src="/imgs/Hambot.webp" alt="Hambot Logo" width={120} />
+          <h2 className="text-cs-black text-center text-4xl leading-11 font-bold">
+            Welcome to <span className="text-primary">Hambot</span>
+            , your
+            <br /> AI-powered helper
+          </h2>
+          <p className="text-description">From prompt to complete corporate branding</p>
+          <div className="mt-8 grid grid-cols-3 gap-9">
+            {optionCards.map((card) => (
+              <IntroductionCard key={card.title} {...card} />
+            ))}
+          </div>
+        </article>
+      )}
     </section>
   )
 }
