@@ -1,9 +1,10 @@
-import { useAuth } from '@/hooks/use-auth'
-import { IntroductionCard } from './IntroductionCard'
-import { useChatbot } from '@/hooks/use-chatbot'
-import PalettePreview from './chatbot/preview/palette-preview'
-import type { Palette } from '@/types'
 import { cn } from '@/helpers/cn'
+import { useAuth } from '@/hooks/use-auth'
+import { useChatbot } from '@/hooks/use-chatbot'
+import type { FontItem, Palette } from '@/types'
+import PalettePreview from './chatbot/preview/palette-preview'
+import TypographyPreview from './chatbot/preview/typography-preview'
+import { IntroductionCard } from './IntroductionCard'
 const optionCards = [
   {
     img: '/imgs/Card-Palette.png',
@@ -33,7 +34,9 @@ export const Preview = () => {
     logout()
   }
 
-  const lastPalette = [...messages].reverse().find((message) => message.type === 'palette')
+  const reversedMessages = [...messages].reverse()
+  const lastPalette = reversedMessages.find((message) => message.type === 'palette')
+  const lastTypography = reversedMessages.find((message) => message.type === 'fonts')
 
   return (
     <section className={cn('grid min-h-screen w-full grid-rows-[auto_1fr]', lastPalette && 'bg-[#F0E8FB]')}>
@@ -59,8 +62,7 @@ export const Preview = () => {
           )}
         </div>
       </header>
-      {lastPalette && <PalettePreview palette={lastPalette.content as Palette} />}
-      {!lastPalette && (
+      {!lastPalette && !lastTypography ? (
         <article className="flex w-full flex-col items-center justify-center">
           <img src="/imgs/Hambot.webp" alt="Hambot Logo" width={120} />
           <h2 className="text-cs-black text-center text-4xl leading-11 font-bold">
@@ -75,6 +77,11 @@ export const Preview = () => {
             ))}
           </div>
         </article>
+      ) : (
+        <div className="flex flex-col gap-4">
+          {lastPalette && <PalettePreview palette={lastPalette.content as Palette} />}
+          {lastTypography && <TypographyPreview fonts={lastTypography.content as FontItem[]} />}
+        </div>
       )}
     </section>
   )
