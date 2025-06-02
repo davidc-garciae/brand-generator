@@ -1,6 +1,5 @@
 import PalettePreview from '@/components/chatbot/preview/palette-preview'
 import { PaletteService, type PaletteDB } from '@/services/palette-service'
-import type { Palette } from '@/types'
 import type { PaginateResponse } from '@/types/paginate-response'
 import { useEffect, useState } from 'react'
 

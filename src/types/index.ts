@@ -1,55 +1,55 @@
 export interface Palette {
-  name: string;
-  description: string;
-  colors: PaletteItem[];
+  name: string
+  description: string
+  colors: PaletteItem[]
 }
 export interface PaletteItem {
-  color: string;
-  name: string;
-  value: number;
+  color: string
+  name: string
+  value: number
 }
 
 export interface FontItem {
-  key: string;
-  name: string;
-  type: "heading" | "body";
+  key: string
+  name: string
+  type: 'heading' | 'body'
 }
 
-export type ChatMessageContent = string | Palette | FontItem[];
-export type ChatMessageType = "text" | "palette" | "fonts" | "error";
+export type ChatMessageContent = string | Palette | FontItem[]
+export type ChatMessageType = 'text' | 'palette' | 'fonts' | 'error'
 
 export interface ChatMessage {
-  id: string;
-  sender: "user" | "bot";
-  content: ChatMessageContent;
-  type: ChatMessageType;
-  timestamp: string;
+  id: string
+  sender: 'user' | 'bot'
+  content: ChatMessageContent
+  type: ChatMessageType
+  timestamp: string
 }
 
 export interface BackendMessageRequest {
-  message: string;
-  chatId?: string | null;
+  message: string
+  chatId?: string | null
 }
 
 export interface BackendMessageResponse {
-  chatId: string;
-  userMessage: string;
-  response: ChatMessageContent;
-  type: "text" | "palette" | "fonts";
-  message: string;
+  chatId: string
+  userMessage: string
+  response: ChatMessageContent
+  type: 'text' | 'palette' | 'fonts'
+  message: string
 }
 
 export interface ChatState {
-  chatId: string | null;
-  messages: ChatMessage[];
-  isLoading: boolean;
-  error: string | null;
+  chatId: string | null
+  messages: ChatMessage[]
+  isLoading: boolean
+  error: string | null
 }
 
 export interface ChatActions {
-  initializeChat: () => void;
-  sendMessage: (text: string) => Promise<void>;
-  clearChat: () => void;
+  initializeChat: () => void
+  sendMessage: (text: string) => Promise<void>
+  clearChat: () => void
 }
 
-export type ChatStore = ChatState & ChatActions;
+export type ChatStore = ChatState & ChatActions
