@@ -1,6 +1,7 @@
 import { useLocation } from 'wouter'
 import { useAuth } from '../../hooks/use-auth'
 import { Button } from '../ui/Button'
+import { Input } from '../ui/Input'
 
 export default function Login() {
   const { login } = useAuth()
@@ -31,8 +32,8 @@ export default function Login() {
     <div>
       <form onSubmit={onSubmit} className="flex w-96 flex-col gap-3 rounded-lg bg-white p-6 shadow-md">
         <h2 className="text-center font-bold">Login</h2>
-        <input type="email" name="email" placeholder="Email" />
-        <input type="password" name="password" placeholder="Password" />
+        <Input type="email" name="email" placeholder="user@example.com" label="Email" />
+        <Input type="password" name="password" placeholder="Your password" label="Password" resend={true} />
         <Button type="submit" variant="primary" label="Login" />
         <p className="text-center">Or</p>
         <Button
@@ -80,10 +81,10 @@ export default function Login() {
           variant="secondary"
           label="Continue with GitHub"
         />
-        <p className="text-center text-sm text-gray-500">
+        <p className="text-cs-black text-center text-sm">
           Don't have an account?{' '}
-          <a href="/register" className="text-blue-500 hover:underline">
-            Register
+          <a href="/register" className="text-cs-black font-bold hover:underline">
+            Sign Up
           </a>
         </p>
       </form>
