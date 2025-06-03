@@ -1,3 +1,4 @@
+import { FONTS } from '@/helpers/contants'
 import type { FontItem } from '@/types'
 import { ChevronDown, ChevronUp, Save, Shuffle } from 'lucide-react'
 import React, { useState } from 'react'
@@ -22,6 +23,9 @@ export default function TypographyPreview(props: Props) {
 
   const fontHeading = fonts.find((font) => font.type === 'heading')
   const fontBody = fonts.find((font) => font.type === 'body')
+
+  const fontFamilyHeading = FONTS.find((font) => font.key === fontHeading?.key)?.fontFamily
+  const fontFamilyBody = FONTS.find((font) => font.key === fontBody?.key)?.fontFamily
 
   return (
     <div className="mx-6 h-fit overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-md">
@@ -53,10 +57,10 @@ export default function TypographyPreview(props: Props) {
 
       {isExpanded && (
         <div className="p-6">
-          <h2 className="text-2xl font-bold" style={{ fontFamily: fontHeading?.name }}>
+          <h2 className="text-2xl font-bold" style={{ fontFamily: fontFamilyHeading }}>
             The quick brown fox jumps over the lazy dog
           </h2>
-          <p className="text-xl leading-relaxed text-gray-600" style={{ fontFamily: fontBody?.name }}>
+          <p className="text-xl leading-relaxed text-gray-600" style={{ fontFamily: fontFamilyBody }}>
             Lorem ipsum dolor sit amet consectetur. Mauris leo egestas lectus amet iaculis posuere fusce maecenas felis.
             Justo ullamcorper elementum massa et nisl rhoncus.
           </p>

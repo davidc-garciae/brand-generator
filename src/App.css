@@ -31,6 +31,62 @@
   src: url('/fonts/InterVariable.woff2') format('woff2');
 }
 
+@font-face {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/PoppinsRegular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: DM Sans;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/DMSansVariable.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: Geist;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/GeistVariable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/MontserratVariable.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: Cal Sans;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/CalSansVariable.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: Lato;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/LatoRegular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: Figtree;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/FigtreeVariable.ttf') format('truetype');
+}
+
 .chat-scrollbar::-webkit-scrollbar {
   width: 5px;
 }

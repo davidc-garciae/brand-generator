@@ -1,4 +1,5 @@
 import { cn } from '@/helpers/cn'
+import { FONTS } from '@/helpers/contants'
 import { useChatbot } from '@/hooks/use-chatbot'
 import type { ChatMessage, FontItem, Palette } from '@/types'
 import { useEffect, useRef } from 'react'
@@ -78,6 +79,10 @@ export function Messages({ messages }: { messages: ChatMessage[] }) {
 }
 
 function MessageContent({ message, isUser }: { message: ChatMessage; isUser?: boolean }) {
+  function getFontFamily(key: string) {
+    const font = FONTS.find((font) => font.key === key)
+    return font?.fontFamily
+  }
   if (message.type === 'text' || message.type === 'error') {
     return <TextMessage text={message.content as string} className={isUser ? 'text-white' : undefined} />
   } else if (message.type === 'palette') {
@@ -103,12 +108,17 @@ function MessageContent({ message, isUser }: { message: ChatMessage; isUser?: bo
     )
   } else if (message.type === 'fonts' && Array.isArray(message.content)) {
     const fonts = message.content as FontItem[]
+
     return (
       <div>
         <p className="mb-2">Te sugiero estas fuentes:</p>
         <ul className="list-disc space-y-1 pl-5">
           {fonts.map((font, index) => (
-            <li key={index} style={{ fontFamily: font.name }}>
+            <li
+              key={index}
+              style={{ fontFamily: getFontFamily(font.key) }}
+              className={cn(font.type === 'heading' ? 'text-xl font-bold' : 'text-base font-normal')}
+            >
               {font.name} ({font.type})
             </li>
           ))}
