@@ -36,7 +36,7 @@ export default function Login() {
         <div className="col-start-1 flex h-full w-full">
           <div className="h-1/3 w-full">
             <div className="flex h-full w-full items-start gap-14">
-              <div className="text-cs-black flex w-[424px] flex-col justify-center gap-3">
+              <div className="text-cs-black flex w-[466px] flex-col justify-center gap-3">
                 <h1 className="text-2xl font-bold">From prompt to complete corporate branding</h1>
                 <p>
                   Colors, typography, and brand personality made simple. Perfect for entrepreneurs, freelancers, and
@@ -55,7 +55,7 @@ export default function Login() {
         </div>
         <form
           onSubmit={onSubmit}
-          className="col-start-2 flex h-fit w-96 flex-col gap-9 place-self-center rounded-3xl bg-white p-6 shadow-md"
+          className="col-start-2 flex h-fit w-96 translate-y-10 flex-col gap-9 place-self-center rounded-3xl bg-white p-6 shadow-md"
         >
           <h2 className="text-center font-bold">Login</h2>
           <div className="flex w-full flex-col gap-4">
@@ -70,7 +70,7 @@ export default function Login() {
           </div>
           <p className="text-cs-black text-center text-sm">
             Don't have an account?{' '}
-            <a href="/register" className="text-cs-black font-bold hover:underline">
+            <a href="/register" className="font-bold text-blue-500 hover:underline">
               Sign Up
             </a>
           </p>
