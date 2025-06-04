@@ -3,6 +3,7 @@ import { FONTS } from '@/helpers/contants'
 import { useChatbot } from '@/hooks/use-chatbot'
 import type { ChatMessage, FontItem, Palette } from '@/types'
 import { useEffect, useRef } from 'react'
+import EmptyStatePalettes from '../empty-state-palettes'
 import TextMessage from './message/text-message'
 
 export function Messages({ messages }: { messages: ChatMessage[] }) {
@@ -22,8 +23,9 @@ export function Messages({ messages }: { messages: ChatMessage[] }) {
           <div className="relative flex h-full flex-col justify-center">
             {/* Empty State */}
             <div className="absolute inset-0 z-10 flex items-center justify-center">
-              <div className="flex h-fit max-w-xs flex-col items-center gap-4 rounded-lg bg-white p-8 drop-shadow-md">
-                <img src="/imgs/Palettes-Chat.webp" alt="Decoration Palettes" width={180} className="drop-shadow-md" />
+              <div className="flex h-fit max-w-xs flex-col items-center gap-4 rounded-lg bg-white/80 p-8 backdrop-blur">
+                <EmptyStatePalettes />
+                {/* <img src="/imgs/Palettes-Chat.webp" alt="Decoration Palettes" width={180} className="drop-shadow-md" /> */}
                 <p className="text-cs-black max-w-[200px] text-center text-[28px] leading-8 font-bold">
                   Let's start to see your palettes here
                 </p>
