@@ -13,7 +13,7 @@
   --color-primary: #9f68ce;
   --color-background: #f7f5fe;
   --color-placeholder: #8ba0ae;
-  --color-border: #c7ced3;
+  --color-border: color-mix(in oklab, var(--color-primary) 10%, transparent);
   --color-dark: #063248;
 
   --text-hero-title: clamp(3rem, 6vw, 6rem);

@@ -21,7 +21,7 @@ export default function ChatbotUI() {
   return (
     <div
       className={cn(
-        'bg-background relative flex h-screen flex-col gap-2 overflow-y-auto duration-200 ease-in-out',
+        'bg-background relative flex h-screen flex-col overflow-y-auto duration-200 ease-in-out',
         isCollapsed
           ? "after:bg-background w-[100px] after:absolute after:top-20 after:right-0 after:bottom-0 after:left-0 after:content-['']"
           : 'w-[700px]',
@@ -36,7 +36,7 @@ export default function ChatbotUI() {
         </div>
       )}
       {/* Input Area */}
-      <div className="p-5">
+      <div className="absolute right-5 bottom-5 left-5">
         <form ref={formRef} onSubmit={handleSubmit} className="relative">
           <textarea
             name="message"
@@ -46,7 +46,7 @@ export default function ChatbotUI() {
               }
             }}
             placeholder="Let's build your corporate brand"
-            className="border-border placeholder:color-placeholder flex field-sizing-content max-h-[175px] min-h-20 w-full flex-grow items-start rounded-md border bg-white p-3 outline-none"
+            className="border-border placeholder:text-placeholder flex field-sizing-content max-h-[175px] min-h-20 w-full flex-grow items-start rounded-md border bg-white/70 p-3 backdrop-blur-lg outline-none placeholder:text-sm"
             disabled={isLoading}
           />
           <button

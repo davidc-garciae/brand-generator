@@ -2,6 +2,7 @@ import { cn } from '@/helpers/cn'
 import { useAuth } from '@/hooks/use-auth'
 import { useChatbot } from '@/hooks/use-chatbot'
 import type { FontItem, Palette } from '@/types'
+import AvatarDropdown from './auth/avatar-dropdown'
 import PalettePreview from './chatbot/preview/palette-preview'
 import TypographyPreview from './chatbot/preview/typography-preview'
 import { IntroductionCard } from './IntroductionCard'
@@ -40,27 +41,19 @@ export const Preview = () => {
 
   return (
     <section className={cn('grid min-h-screen w-full grid-rows-[auto_1fr]', lastPalette && 'bg-[#F0E8FB]')}>
-      <header className="flex w-full items-center justify-center p-5">
-        <div className="flex h-[50px] w-full items-center justify-end rounded-md bg-white px-[10px] py-[5px] shadow-sm">
-          {user ? (
-            <div className="flex items-center gap-2">
-              <img src="/imgs/Avatar.png" alt="User Avatar" width={36} height={36} />
-              <p className="text-cs-black text-sm">{user.email}</p>
-              <button onClick={handleLogout} className="text-primary cursor-pointer text-sm hover:underline">
-                Logout
-              </button>
-            </div>
-          ) : (
-            <div className="flex items-center gap-4">
-              <a href="/login" className="text-primary cursor-pointer text-sm hover:underline">
-                Login
-              </a>
-              <a href="/register" className="text-primary cursor-pointer text-sm hover:underline">
-                Register
-              </a>
-            </div>
-          )}
-        </div>
+      <header className="flex w-full items-center justify-end px-8 py-6">
+        {user ? (
+          <AvatarDropdown user={user} onLogout={handleLogout} />
+        ) : (
+          <div className="flex items-center gap-4">
+            <a href="/login" className="text-primary cursor-pointer text-sm hover:underline">
+              Login
+            </a>
+            <a href="/register" className="text-primary cursor-pointer text-sm hover:underline">
+              Register
+            </a>
+          </div>
+        )}
       </header>
       {!lastPalette && !lastTypography ? (
         <article className="flex w-full flex-col items-center justify-center">

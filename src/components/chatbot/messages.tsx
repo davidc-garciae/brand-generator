@@ -17,7 +17,6 @@ export function Messages({ messages }: { messages: ChatMessage[] }) {
   useEffect(scrollToBottom, [messages])
   return (
     <div className="relative size-full flex-grow overflow-x-hidden overflow-y-auto">
-      <div className="from-background pointer-events-none absolute top-0 right-4 left-0 z-10 h-4 bg-gradient-to-b to-transparent opacity-100 transition-opacity" />
       <div className="chat-scrollbar relative flex h-full flex-col gap-4 overflow-x-hidden overflow-y-auto px-5 py-4">
         {!hasMessages ? (
           <div className="relative flex h-full flex-col justify-center">
@@ -37,16 +36,17 @@ export function Messages({ messages }: { messages: ChatMessage[] }) {
           </div>
         ) : (
           <>
+            <div className="mt-16"></div>
             {messages.map((msg) => (
               <div key={msg.id} className={cn('flex', msg.sender === 'user' ? 'justify-end' : 'justify-start')}>
                 <div
                   className={cn(
-                    'rounded-xl p-3 shadow-xs',
+                    'rounded-xl border p-3',
                     msg.sender === 'user'
-                      ? 'rounded-br-none bg-blue-500 text-white'
+                      ? 'bg-primary border-border rounded-br-none text-white'
                       : msg.type === 'error'
-                        ? 'rounded-bl-none border border-red-300 bg-red-100 text-red-700'
-                        : 'rounded-bl-none bg-white text-gray-800',
+                        ? 'rounded-bl-none border-red-300 bg-red-100 text-red-700'
+                        : 'border-border rounded-bl-none bg-white text-gray-800',
                   )}
                 >
                   <MessageContent message={msg} isUser={msg.sender === 'user'} />
@@ -54,7 +54,7 @@ export function Messages({ messages }: { messages: ChatMessage[] }) {
                     className={cn(
                       'mt-1.5 text-xs',
                       msg.sender === 'user'
-                        ? 'text-right text-blue-200'
+                        ? 'text-right text-white/80'
                         : 'text-right text-gray-500 dark:text-gray-400',
                     )}
                   >
@@ -66,6 +66,7 @@ export function Messages({ messages }: { messages: ChatMessage[] }) {
                 </div>
               </div>
             ))}
+            <div className="mb-16"></div>
             {isLoading && (
               <div className="py-2 text-center text-sm text-gray-500 italic dark:text-gray-400">Escribiendo...</div>
             )}
@@ -73,7 +74,6 @@ export function Messages({ messages }: { messages: ChatMessage[] }) {
           </>
         )}
       </div>
-      <div className="from-background pointer-events-none absolute right-4 bottom-0 left-0 z-10 h-4 bg-gradient-to-t to-transparent opacity-100 transition-opacity" />
     </div>
   )
 }
@@ -92,11 +92,11 @@ function MessageContent({ message, isUser }: { message: ChatMessage; isUser?: bo
         <p className="mb-2 font-semibold">{palette.name}</p>
         <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">{palette.description}</p>
         <p className="mb-2">Aquí tienes una paleta de colores:</p>
-        <div className="mt-2 flex flex-wrap gap-3">
+        <div className="mt-2 grid grid-cols-3 gap-3">
           {palette.colors.map((colorItem, index) => (
-            <div key={index} className="text-center">
+            <div key={index} className="flex flex-col items-center text-center">
               <div
-                className="h-16 w-16 rounded-md border border-gray-300 shadow-sm"
+                className="border-border h-16 w-16 rounded-md border"
                 style={{ backgroundColor: colorItem.color }}
               ></div>
               <small className="mt-1 block text-xs text-gray-700 dark:text-gray-300">{colorItem.name}</small>

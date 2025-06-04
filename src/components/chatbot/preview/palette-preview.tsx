@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { ChevronDown, ChevronUp, Shuffle, Copy, Save } from 'lucide-react'
 import type { Palette } from '@/types'
+import { ChevronDown, ChevronUp, Copy, Save, Shuffle } from 'lucide-react'
+import React, { useState } from 'react'
 
 type Props = {
   palette: Palette
@@ -36,7 +36,7 @@ export default function PalettePreview(props: Props) {
   }
 
   return (
-    <div className="mx-6 h-fit overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-md">
+    <div className="border-primary/20 mx-6 h-fit overflow-hidden rounded-2xl border bg-white">
       <div className="flex items-center justify-between border-b border-gray-100 p-6">
         <div className="flex items-center gap-3">
           <button
@@ -70,7 +70,7 @@ export default function PalettePreview(props: Props) {
 
       {isExpanded && (
         <div className="p-6">
-          <div className="mb-6 flex overflow-hidden rounded-2xl border border-gray-200">
+          <div className="border-border mb-6 flex overflow-hidden rounded-2xl border">
             {colors.map((color, index) => (
               <div
                 key={index}

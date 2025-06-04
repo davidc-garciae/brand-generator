@@ -1,11 +1,11 @@
 interface ButtonProps {
-  variant: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary'
   label: string
   icon?: React.ReactNode
   type?: 'button' | 'submit' | 'reset'
 }
 
-export const Button = ({ variant, label, icon }: ButtonProps) => {
+export const Button = ({ variant = 'primary', label, icon }: ButtonProps) => {
   const base = 'rounded-xl px-4 py-2 flex items-center justify-center gap-2 cursor-pointer border'
   const variants = {
     primary:

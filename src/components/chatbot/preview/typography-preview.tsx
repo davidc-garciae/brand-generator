@@ -28,7 +28,7 @@ export default function TypographyPreview(props: Props) {
   const fontFamilyBody = FONTS.find((font) => font.key === fontBody?.key)?.fontFamily
 
   return (
-    <div className="mx-6 h-fit overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-md">
+    <div className="border-primary/20 mx-6 h-fit overflow-hidden rounded-2xl border bg-white">
       <div className="flex items-center justify-between border-b border-gray-100 p-6">
         <div className="flex items-center gap-3">
           <button
