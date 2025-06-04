@@ -43,7 +43,7 @@ export default function AvatarDropdown({ user, onLogout }: AvatarDropdownProps) 
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 z-50 mt-2 w-64 rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
+        <div className="absolute right-0 z-50 mt-2 w-64 rounded-lg border border-gray-200/80 bg-white py-2 shadow-lg">
           <div className="border-b border-gray-100 px-4 py-2">
             <div className="flex items-center gap-3">
               <img src="/imgs/Avatar.png" alt="User Avatar" width={32} height={32} className="rounded-full" />

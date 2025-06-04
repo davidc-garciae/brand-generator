@@ -1,3 +1,4 @@
+import { cn } from '@/helpers/cn'
 import { useChatbot } from '@/hooks/use-chatbot'
 import { FileDiffIcon, PanelLeftClose, PanelLeftOpen } from 'lucide-react'
 
@@ -10,7 +11,12 @@ export function Header({
 }) {
   const { startNewChat } = useChatbot()
   return (
-    <div className="border-border absolute z-10 m-5 flex min-h-14 w-[calc(100%-42px)] items-center justify-between gap-4 rounded-lg border bg-white/70 px-2 py-1 backdrop-blur-lg">
+    <div
+      className={cn(
+        'border-border absolute z-50 m-5 flex min-h-14 w-[calc(100%-42px)] items-center justify-between gap-4 rounded-lg border bg-white/70 px-2 py-1 backdrop-blur-lg',
+        isCollapsed && 'justify-center',
+      )}
+    >
       {!isCollapsed && (
         <hgroup className="flex w-9 items-center gap-2">
           <img width={36} height={36} alt="Hambot Logo" src="/imgs/Hambot.webp" className="size-9" />
