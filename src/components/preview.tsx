@@ -6,6 +6,8 @@ import AvatarDropdown from './auth/avatar-dropdown'
 import PalettePreview from './chatbot/preview/palette-preview'
 import TypographyPreview from './chatbot/preview/typography-preview'
 import { IntroductionCard } from './IntroductionCard'
+import { GitHubIcon } from './icons/Icons'
+import { BugIcon } from 'lucide-react'
 const optionCards = [
   {
     img: '/imgs/Card-Palette.png',
@@ -41,7 +43,23 @@ export const Preview = () => {
 
   return (
     <section className={cn('grid min-h-screen w-full grid-rows-[auto_1fr]', lastPalette && 'bg-[#F0E8FB]')}>
-      <header className="flex w-full items-center justify-end px-8 py-6">
+      <header className="flex w-full items-center justify-between px-8 py-6">
+        <div className="border-primary/20 me-4 flex items-center gap-4 rounded-md border px-2 py-1">
+          <a
+            href="https://github.com/afordigital/brand-generator/issues/new"
+            className="text-primary mr-4 flex cursor-pointer items-center gap-1 text-sm hover:underline"
+          >
+            <BugIcon className="size-4" />
+            Issue
+          </a>
+          <a
+            href="https://github.com/afordigital/brand-generator"
+            className="text-primary flex cursor-pointer items-center gap-1 text-sm hover:underline"
+          >
+            <GitHubIcon className="text-primary size-4" />
+            Github
+          </a>
+        </div>
         {user ? (
           <AvatarDropdown user={user} onLogout={handleLogout} />
         ) : (
