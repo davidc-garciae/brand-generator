@@ -36,7 +36,7 @@ export default function ChatbotUI() {
         </div>
       )}
       {/* Input Area */}
-      <div className="absolute right-5 bottom-5 left-5">
+      <div className="absolute right-5 bottom-5 left-5 z-50">
         <form ref={formRef} onSubmit={handleSubmit} className="relative">
           <textarea
             name="message"
