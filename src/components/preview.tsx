@@ -48,6 +48,9 @@ export const Preview = () => {
           <a
             href="https://github.com/afordigital/brand-generator/issues/new"
             className="text-primary mr-4 flex cursor-pointer items-center gap-1 text-sm hover:underline"
+            title="Report an issue"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <BugIcon className="size-4" />
             Issue
@@ -55,6 +58,9 @@ export const Preview = () => {
           <a
             href="https://github.com/afordigital/brand-generator"
             className="text-primary flex cursor-pointer items-center gap-1 text-sm hover:underline"
+            title="View on GitHub"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <GitHubIcon className="text-primary size-4" />
             Github
