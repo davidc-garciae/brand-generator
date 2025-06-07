@@ -42,7 +42,7 @@ export const Preview = () => {
   const lastTypography = reversedMessages.find((message) => message.type === 'fonts')
 
   return (
-    <section className={cn('grid min-h-screen w-full grid-rows-[auto_1fr]', lastPalette && 'bg-[#F0E8FB]')}>
+    <section className={cn('grid min-h-screen w-full grid-rows-[auto_1fr] pb-6', lastPalette && 'bg-[#F0E8FB]')}>
       <header className="flex w-full items-center justify-between px-8 py-6">
         <div className="border-primary/20 me-4 flex items-center gap-4 rounded-md border px-2 py-1">
           <a
