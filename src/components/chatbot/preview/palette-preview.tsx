@@ -1,29 +1,46 @@
+import { cn } from '@/helpers/cn'
 import { generateTailwindColors } from '@/helpers/palette-helpers'
 import type { Palette } from '@/types'
-import { ChevronDown, ChevronUp, Copy, Save, Shuffle } from 'lucide-react'
+import { ChevronDown, ChevronUp, Copy, LayoutTemplateIcon, Save, Shuffle } from 'lucide-react'
 import React, { useState } from 'react'
 import { toast } from 'sonner'
+import { AlertPreview } from './palette/alert-preview'
+import { ButtonPreview } from './palette/button-preview'
+import { CardPreview } from './palette/card-preview'
+import { FormPreview } from './palette/form-preview'
+import { NavigationPreview } from './palette/navigation-preview'
 
 type Props = {
   palette: Palette
   editable?: boolean
+  className?: string
 }
 
-const Button = ({ onClick, children }: { onClick?: () => void; children: React.ReactNode }) => (
+const Button = ({
+  onClick,
+  children,
+  className,
+}: {
+  onClick?: () => void
+  children: React.ReactNode
+  className?: string
+}) => (
   <button
     onClick={onClick}
-    className="flex cursor-pointer items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
+    className={cn(
+      'flex cursor-pointer items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-800 disabled:cursor-not-allowed disabled:opacity-50',
+      className,
+    )}
   >
     {children}
   </button>
 )
 
 export default function PalettePreview(props: Props) {
-  const {
-    palette: { colors, description, name },
-    editable = false,
-  } = props
+  const { palette, editable = false } = props
+  const { colors, description, name } = palette
   const [isExpanded, setIsExpanded] = useState(true)
+  const [isDemoExpanded, setIsDemoExpanded] = useState(false)
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
 
   const copyToClipboard = (hex: string, index: number) => {
@@ -39,7 +56,7 @@ export default function PalettePreview(props: Props) {
   }
 
   const copyToTailwind = () => {
-    const tailwindColors = generateTailwindColors({ colors, description, name })
+    const tailwindColors = generateTailwindColors(palette)
     navigator.clipboard.writeText(tailwindColors)
     toast.success('Copied Tailwind colors to clipboard', {
       description: <pre className="bg-gray-100 p-2 text-xs">{tailwindColors}</pre>,
@@ -66,6 +83,14 @@ export default function PalettePreview(props: Props) {
               Create Again
             </Button>
           )}
+
+          <Button
+            onClick={() => setIsDemoExpanded(!isDemoExpanded)}
+            className={cn(isDemoExpanded && 'bg-primary/10 text-primary')}
+          >
+            <LayoutTemplateIcon size={16} />
+            {isDemoExpanded ? 'Hide demo' : 'View demo'}
+          </Button>
 
           <Button onClick={copyToTailwind}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 54 33" width={20} height={20}>
@@ -125,6 +150,22 @@ export default function PalettePreview(props: Props) {
           <p className="text-sm leading-relaxed text-gray-600">
             {description || 'No description provided for this palette.'}
           </p>
+
+          {isDemoExpanded && (
+            <div className="mt-4 space-y-8">
+              <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+                <ButtonPreview palette={palette} />
+                <FormPreview palette={palette} />
+              </div>
+
+              <NavigationPreview palette={palette} />
+
+              <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+                <CardPreview palette={palette} />
+                <AlertPreview palette={palette} />
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

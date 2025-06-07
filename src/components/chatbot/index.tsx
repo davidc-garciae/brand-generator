@@ -21,7 +21,7 @@ export default function ChatbotUI() {
   return (
     <div
       className={cn(
-        'bg-background relative flex h-screen flex-col overflow-y-auto duration-200 ease-in-out',
+        'bg-background sticky top-0 flex h-screen flex-col overflow-y-auto duration-200 ease-in-out',
         isCollapsed
           ? "after:bg-background w-[100px] after:absolute after:top-20 after:right-0 after:bottom-0 after:left-0 after:content-['']"
           : 'w-[700px]',

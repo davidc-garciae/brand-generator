@@ -2,12 +2,12 @@ import { cn } from '@/helpers/cn'
 import { useAuth } from '@/hooks/use-auth'
 import { useChatbot } from '@/hooks/use-chatbot'
 import type { FontItem, Palette } from '@/types'
+import { BugIcon } from 'lucide-react'
 import AvatarDropdown from './auth/avatar-dropdown'
 import PalettePreview from './chatbot/preview/palette-preview'
 import TypographyPreview from './chatbot/preview/typography-preview'
-import { IntroductionCard } from './IntroductionCard'
 import { GitHubIcon } from './icons/Icons'
-import { BugIcon } from 'lucide-react'
+import { IntroductionCard } from './IntroductionCard'
 const optionCards = [
   {
     img: '/imgs/Card-Palette.png',
@@ -97,7 +97,9 @@ export const Preview = () => {
       ) : (
         <div className="flex flex-col gap-4">
           {lastPalette && <PalettePreview palette={lastPalette.content as Palette} />}
-          {lastTypography && <TypographyPreview fonts={lastTypography.content as FontItem[]} />}
+          {lastTypography && (
+            <TypographyPreview palette={lastPalette?.content as Palette} fonts={lastTypography.content as FontItem[]} />
+          )}
         </div>
       )}
     </section>

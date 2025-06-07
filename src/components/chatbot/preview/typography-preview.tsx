@@ -1,11 +1,12 @@
 import { FONTS } from '@/helpers/contants'
-import type { FontItem } from '@/types'
+import type { FontItem, Palette } from '@/types'
 import { ChevronDown, ChevronUp, Save, Shuffle } from 'lucide-react'
 import React, { useState } from 'react'
 
 type Props = {
   fonts: FontItem[]
   editable?: boolean
+  palette?: Palette
 }
 
 const Button = ({ onClick, children }: { onClick?: () => void; children: React.ReactNode }) => (
@@ -18,7 +19,8 @@ const Button = ({ onClick, children }: { onClick?: () => void; children: React.R
 )
 
 export default function TypographyPreview(props: Props) {
-  const { fonts, editable = false } = props
+  const { fonts, editable = false, palette } = props
+
   const [isExpanded, setIsExpanded] = useState(true)
 
   const fontHeading = fonts.find((font) => font.type === 'heading')
@@ -26,6 +28,10 @@ export default function TypographyPreview(props: Props) {
 
   const fontFamilyHeading = FONTS.find((font) => font.key === fontHeading?.key)?.fontFamily
   const fontFamilyBody = FONTS.find((font) => font.key === fontBody?.key)?.fontFamily
+
+  const primary = palette?.colors.find((c) => c.value === 700)?.color || '#374151'
+  const secondary = palette?.colors.find((c) => c.value === 500)?.color || '#6B7280'
+  const accent = palette?.colors.find((c) => c.value === 600)?.color || '#3B82F6'
 
   return (
     <div className="border-primary/20 mx-6 h-fit overflow-hidden rounded-2xl border bg-white">
@@ -56,14 +62,53 @@ export default function TypographyPreview(props: Props) {
       </div>
 
       {isExpanded && (
-        <div className="p-6">
-          <h2 className="text-2xl font-bold" style={{ fontFamily: fontFamilyHeading }}>
-            The quick brown fox jumps over the lazy dog
-          </h2>
-          <p className="text-xl leading-relaxed text-gray-600" style={{ fontFamily: fontFamilyBody }}>
-            Lorem ipsum dolor sit amet consectetur. Mauris leo egestas lectus amet iaculis posuere fusce maecenas felis.
-            Justo ullamcorper elementum massa et nisl rhoncus.
-          </p>
+        <div className="space-y-6 p-6">
+          <div>
+            <h1 className="mb-2 text-4xl font-bold" style={{ color: primary, fontFamily: fontFamilyHeading }}>
+              Heading Level 1
+            </h1>
+            <h2 className="mb-2 text-3xl font-semibold" style={{ color: primary, fontFamily: fontFamilyHeading }}>
+              Heading Level 2
+            </h2>
+            <h3 className="mb-2 text-2xl font-medium" style={{ color: secondary, fontFamily: fontFamilyHeading }}>
+              Heading Level 3
+            </h3>
+          </div>
+
+          <div className="prose max-w-none" style={{ fontFamily: fontFamilyBody }}>
+            <p className="mb-4 leading-relaxed text-gray-700">
+              This is a paragraph demonstrating how your palette works with body text. The colors maintain excellent
+              readability while providing visual hierarchy and brand consistency throughout your design system.
+            </p>
+
+            <p className="mb-4 text-sm text-gray-600">
+              This is smaller body text that works well for secondary information, captions, or supplementary content
+              within your designs.
+            </p>
+
+            <blockquote className="border-l-4 pl-4 italic" style={{ borderColor: accent }}>
+              <p style={{ color: secondary }}>
+                "A well-designed color palette serves as the foundation for consistent, professional, and visually
+                appealing user interfaces."
+              </p>
+            </blockquote>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            <span className="rounded-full px-3 py-1 text-sm font-medium text-white" style={{ backgroundColor: accent }}>
+              Primary Tag
+            </span>
+            <span
+              className="rounded-full border px-3 py-1 text-sm font-medium"
+              style={{
+                borderColor: secondary,
+                color: secondary,
+              }}
+            >
+              Secondary Tag
+            </span>
+            <span className="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">Neutral Tag</span>
+          </div>
         </div>
       )}
     </div>
