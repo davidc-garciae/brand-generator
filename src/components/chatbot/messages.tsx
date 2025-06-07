@@ -4,6 +4,7 @@ import { useChatbot } from '@/hooks/use-chatbot'
 import type { ChatMessage, FontItem, Palette } from '@/types'
 import { useEffect, useRef } from 'react'
 import EmptyStatePalettes from '../empty-state-palettes'
+import BotLoading from './bot-loading'
 import TextMessage from './message/text-message'
 
 export function Messages({ messages }: { messages: ChatMessage[] }) {
@@ -68,10 +69,8 @@ export function Messages({ messages }: { messages: ChatMessage[] }) {
                 </div>
               </div>
             ))}
+            {isLoading && <BotLoading variant="compact" />}
             <div className="mb-16"></div>
-            {isLoading && (
-              <div className="py-2 text-center text-sm text-gray-500 italic dark:text-gray-400">Escribiendo...</div>
-            )}
             <div ref={messagesEndRef} />
           </>
         )}
