@@ -10,7 +10,7 @@ export const Button = ({ variant = 'primary', label, icon }: ButtonProps) => {
   const variants = {
     primary:
       'bg-dark font-bold hover:bg-white hover:text-cs-black text-white transition-colors duration-200 hover:border hover:border-gray-300',
-    secondary: 'bg-white text-cs-black hover:bg-gray-100 border border-gray-300 transition-colors duration-200',
+    secondary: 'bg-white text-cs-black hover:bg-gray-100 border border-border transition-colors duration-200',
   }
   return (
     <button className={`${base} ${variants[variant]}`}>

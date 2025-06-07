@@ -1,8 +1,8 @@
 import { useLocation } from 'wouter'
 import { useAuth } from '../../hooks/use-auth'
+import { GitHubIcon, GoogleIcon } from '../icons/Icons'
 import { Button } from '../ui/Button'
 import { Input } from '../ui/Input'
-import { GitHubIcon, GoogleIcon } from '../icons/Icons'
 
 export default function Login() {
   const { login } = useAuth()
@@ -32,8 +32,8 @@ export default function Login() {
   return (
     <>
       <div className="absolute -z-10 h-1/2 w-full bg-purple-100"></div>
-      <div className="col-span-2 m-auto grid min-h-screen w-full max-w-[1440px] grid-cols-[1fr_400px] px-32 py-48">
-        <div className="col-start-1 flex h-full w-full">
+      <div className="fixed left-1/2 min-h-screen w-full max-w-[1440px] translate-x-[-50%] px-32 py-48 lg:grid lg:grid-cols-[1fr_400px]">
+        <div className="col-start-1 hidden h-full w-full lg:flex">
           <div className="h-1/3 w-full">
             <div className="flex h-full w-full items-start gap-14">
               <div className="text-cs-black flex w-[466px] flex-col justify-center gap-3">
@@ -55,7 +55,7 @@ export default function Login() {
         </div>
         <form
           onSubmit={onSubmit}
-          className="col-start-2 flex h-fit w-96 translate-y-10 flex-col gap-9 place-self-center rounded-3xl bg-white p-6 shadow-md"
+          className="border-border col-start-2 flex h-fit w-96 translate-y-10 flex-col gap-9 place-self-center rounded-3xl border bg-white p-6"
         >
           <h2 className="text-center font-bold">Login</h2>
           <div className="flex w-full flex-col gap-4">
