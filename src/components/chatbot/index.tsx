@@ -12,6 +12,7 @@ export default function ChatbotUI() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (isLoading) return
     const message = new FormData(e.target as HTMLFormElement).get('message') as string
     if (!message.trim()) return
     sendMessage(message)
@@ -28,7 +29,7 @@ export default function ChatbotUI() {
       )}
     >
       <Header isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
-      <Messages messages={messages} />
+      <Messages messages={messages} isCollapsed={isCollapsed} />
       {/* Error Display */}
       {error && (
         <div className="border-t border-red-200 bg-red-100 p-3 text-center text-sm text-red-700 dark:border-red-700 dark:bg-red-800 dark:text-red-200">
@@ -36,28 +37,29 @@ export default function ChatbotUI() {
         </div>
       )}
       {/* Input Area */}
-      <div className="absolute right-5 bottom-5 left-5 z-50">
-        <form ref={formRef} onSubmit={handleSubmit} className="relative">
-          <textarea
-            name="message"
-            onKeyDown={(event) => {
-              if (event.key === 'Enter' && !event.shiftKey) {
-                formRef.current?.requestSubmit()
-              }
-            }}
-            placeholder="Let's build your corporate brand"
-            className="border-border placeholder:text-placeholder flex field-sizing-content max-h-[175px] min-h-20 w-full flex-grow items-start rounded-md border bg-white/70 p-3 backdrop-blur-lg outline-none placeholder:text-sm"
-            disabled={isLoading}
-          />
-          <button
-            type="submit"
-            className="bg-dark absolute right-2 bottom-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full p-2 transition-colors hover:bg-[#104C6B]"
-            disabled={isLoading}
-          >
-            <SendHorizonal color="#ffffff" width={12} height={14} />
-          </button>
-        </form>
-      </div>
+      {!isCollapsed && (
+        <div className="absolute right-5 bottom-5 left-5 z-50">
+          <form ref={formRef} onSubmit={handleSubmit} className="relative">
+            <textarea
+              name="message"
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' && !event.shiftKey) {
+                  formRef.current?.requestSubmit()
+                }
+              }}
+              placeholder="Let's build your corporate brand"
+              className="border-border placeholder:text-placeholder flex field-sizing-content max-h-[175px] min-h-20 w-full flex-grow items-start rounded-md border bg-white/70 p-3 backdrop-blur-lg outline-none placeholder:text-sm"
+            />
+            <button
+              type="submit"
+              className="bg-dark absolute right-2 bottom-2 flex h-8 w-8 items-center justify-center rounded-full p-2 transition-colors hover:bg-[#104C6B] disabled:cursor-none disabled:cursor-not-allowed disabled:bg-slate-500"
+              disabled={isLoading}
+            >
+              <SendHorizonal color="#ffffff" width={12} height={14} />
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   )
 }

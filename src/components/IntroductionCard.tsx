@@ -7,7 +7,7 @@ type Props = {
 
 export const IntroductionCard = ({ img, alt, title, description }: Props) => {
   return (
-    <div className="border-border group flex w-[226px] flex-col justify-between gap-4 rounded-lg border-1 p-4">
+    <div className="border-border group flex w-[226px] cursor-pointer flex-col justify-between gap-4 rounded-lg border-1 p-4">
       <div className="w-[200px] overflow-hidden rounded-lg">
         <img
           src={img}

@@ -8,23 +8,28 @@ import PalettePreview from './chatbot/preview/palette-preview'
 import TypographyPreview from './chatbot/preview/typography-preview'
 import { GitHubIcon } from './icons/Icons'
 import { IntroductionCard } from './IntroductionCard'
+
 const optionCards = [
   {
+    id: 'palette',
     img: '/imgs/Card-Palette.png',
     alt: 'Card Palette Decoration',
     title: 'Create Palette',
     description: 'Describe your brand and get the perfect colors for it',
+    inputMessage: 'Make me a palette for my brand',
   },
   {
+    id: 'typography',
     img: '/imgs/Card-Typography.png',
     alt: 'Card Typography Decoration',
     title: 'Choose Typography',
     description: 'Get the best typography for your branding',
   },
   {
+    id: 'slogan',
     img: '/imgs/Card-Copy.png',
-    alt: 'Card Typography Decoration',
-    title: 'Adapt Copy-writting',
+    alt: 'Card Create Slogans Decoration',
+    title: 'Create slogans',
     description: 'Find your voice, and adapt the message for your brand',
   },
 ]
@@ -90,13 +95,13 @@ export const Preview = () => {
           <p className="text-description">From prompt to complete corporate branding</p>
           <div className="mt-8 grid grid-cols-3 gap-9">
             {optionCards.map((card) => (
-              <IntroductionCard key={card.title} {...card} />
+              <IntroductionCard key={card.id} {...card} />
             ))}
           </div>
         </article>
       ) : (
         <div className="flex flex-col gap-4">
-          {lastPalette && <PalettePreview palette={lastPalette.content as Palette} />}
+          {lastPalette && <PalettePreview palette={lastPalette.content as Palette} editable={true} />}
           {lastTypography && (
             <TypographyPreview palette={lastPalette?.content as Palette} fonts={lastTypography.content as FontItem[]} />
           )}

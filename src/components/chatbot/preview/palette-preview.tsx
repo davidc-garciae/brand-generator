@@ -9,6 +9,7 @@ import { ButtonPreview } from './palette/button-preview'
 import { CardPreview } from './palette/card-preview'
 import { FormPreview } from './palette/form-preview'
 import { NavigationPreview } from './palette/navigation-preview'
+import { colord } from 'colord'
 
 type Props = {
   palette: Palette
@@ -37,7 +38,7 @@ const Button = ({
 )
 
 export default function PalettePreview(props: Props) {
-  const { palette, editable = false } = props
+  const { palette, editable } = props
   const { colors, description, name } = palette
   const [isExpanded, setIsExpanded] = useState(true)
   const [isDemoExpanded, setIsDemoExpanded] = useState(false)
@@ -63,10 +64,12 @@ export default function PalettePreview(props: Props) {
     })
   }
 
+  const savePalette = () => {}
+
   return (
     <div className="border-primary/20 mx-6 h-fit overflow-hidden rounded-2xl border bg-white">
       <div className="flex items-center justify-between border-b border-gray-100 p-6">
-        <div className="flex items-center gap-3">
+        <div className="flex cursor-pointer items-center gap-3">
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             className="flex items-center gap-2 text-lg font-semibold text-gray-800 transition-colors hover:text-gray-600"
@@ -77,46 +80,48 @@ export default function PalettePreview(props: Props) {
         </div>
 
         <div className="flex items-center gap-3">
-          {editable && (
-            <Button>
-              <Shuffle size={16} />
-              Create Again
-            </Button>
+          {isExpanded && (
+            <>
+              {editable && (
+                <Button>
+                  <Shuffle size={16} />
+                  Create Again
+                </Button>
+              )}
+              <Button
+                onClick={() => setIsDemoExpanded(!isDemoExpanded)}
+                className={cn(isDemoExpanded && 'bg-primary/10 text-primary')}
+              >
+                <LayoutTemplateIcon size={16} />
+                {isDemoExpanded ? 'Hide demo' : 'View demo'}
+              </Button>
+              {/* <Button onClick={copyToTailwind}>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 54 33" width={20} height={20}>
+                  <g clip-path="url(#a)">
+                    <path
+                      fill="#38bdf8"
+                      fill-rule="evenodd"
+                      d="M27 0c-7.2 0-11.7 3.6-13.5 10.8 2.7-3.6 5.85-4.95 9.45-4.05 2.054.513 3.522 2.004 5.147 3.653C30.744 13.09 33.808 16.2 40.5 16.2c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C36.756 3.11 33.692 0 27 0zM13.5 16.2C6.3 16.2 1.8 19.8 0 27c2.7-3.6 5.85-4.95 9.45-4.05 2.054.514 3.522 2.004 5.147 3.653C17.244 29.29 20.308 32.4 27 32.4c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C23.256 19.31 20.192 16.2 13.5 16.2z"
+                      clip-rule="evenodd"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="a">
+                      <path fill="#fff" d="M0 0h54v32.4H0z" />
+                    </clipPath>
+                  </defs>
+                </svg>
+                Tailwind
+              </Button> */}
+              {/* TODO: Unificar los dos botones de copiar */}
+              <Button onClick={copyAllColors}>
+                <Copy size={16} />
+                Copy
+              </Button>
+            </>
           )}
 
-          <Button
-            onClick={() => setIsDemoExpanded(!isDemoExpanded)}
-            className={cn(isDemoExpanded && 'bg-primary/10 text-primary')}
-          >
-            <LayoutTemplateIcon size={16} />
-            {isDemoExpanded ? 'Hide demo' : 'View demo'}
-          </Button>
-
-          <Button onClick={copyToTailwind}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 54 33" width={20} height={20}>
-              <g clip-path="url(#a)">
-                <path
-                  fill="#38bdf8"
-                  fill-rule="evenodd"
-                  d="M27 0c-7.2 0-11.7 3.6-13.5 10.8 2.7-3.6 5.85-4.95 9.45-4.05 2.054.513 3.522 2.004 5.147 3.653C30.744 13.09 33.808 16.2 40.5 16.2c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C36.756 3.11 33.692 0 27 0zM13.5 16.2C6.3 16.2 1.8 19.8 0 27c2.7-3.6 5.85-4.95 9.45-4.05 2.054.514 3.522 2.004 5.147 3.653C17.244 29.29 20.308 32.4 27 32.4c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C23.256 19.31 20.192 16.2 13.5 16.2z"
-                  clip-rule="evenodd"
-                />
-              </g>
-              <defs>
-                <clipPath id="a">
-                  <path fill="#fff" d="M0 0h54v32.4H0z" />
-                </clipPath>
-              </defs>
-            </svg>
-            Tailwind
-          </Button>
-
-          <Button onClick={copyAllColors}>
-            <Copy size={16} />
-            Copy all
-          </Button>
-
-          <Button>
+          <Button onClick={savePalette}>
             <Save size={16} />
             Save
           </Button>
@@ -133,7 +138,9 @@ export default function PalettePreview(props: Props) {
                 onClick={() => copyToClipboard(color.color, index)}
                 style={{ backgroundColor: color.color }}
               >
-                <div className="absolute bottom-4 left-4 text-white">
+                <div
+                  className={`${colord(color.color).isLight() ? 'text-black' : 'text-white'} absolute right-0 bottom-4 left-0 m-auto text-center`}
+                >
                   <div className="mb-1 text-sm font-medium drop-shadow-sm">{color.name}</div>
                   <div className="text-xs opacity-90 drop-shadow-sm">{color.color}</div>
                 </div>
