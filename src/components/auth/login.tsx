@@ -37,7 +37,7 @@ export default function Login() {
           <div className="h-1/3 w-full">
             <div className="flex h-full w-full items-start gap-14">
               <div className="text-cs-black flex w-[466px] flex-col justify-center gap-3">
-                <h1 className="text-2xl font-bold">From prompt to complete corporate branding</h1>
+                <h1 className="text-4xl font-bold">From prompt to complete corporate branding</h1>
                 <p>
                   Colors, typography, and brand personality made simple. Perfect for entrepreneurs, freelancers, and
                   creatives. Just answer a few questions, and we’ll make magic!
@@ -57,7 +57,7 @@ export default function Login() {
           onSubmit={onSubmit}
           className="border-border col-start-2 flex h-fit w-96 translate-y-10 flex-col gap-9 place-self-center rounded-3xl border bg-white p-6"
         >
-          <h2 className="text-center font-bold">Login</h2>
+          <h2 className="text-center text-xl font-bold">Login</h2>
           <div className="flex w-full flex-col gap-4">
             <Input type="email" name="email" placeholder="user@example.com" label="Email" />
             <Input type="password" name="password" placeholder="Your password" label="Password" resend={true} />
